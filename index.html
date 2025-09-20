@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             background-color: #1a202c;
@@ -14,7 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             overflow: hidden;
         }
@@ -28,14 +29,14 @@
     </style>
 </head>
 <body class="p-4 sm:p-8">
-    <div class="flex flex-col items-center justify-center p-6 bg-gray-800 rounded-3xl shadow-2xl max-w-4xl mx-auto space-y-6">
+    <div class="container mx-auto flex flex-col items-center justify-center p-6 bg-gray-800 rounded-3xl shadow-2xl space-y-6">
         <h1 class="text-3xl sm:text-4xl font-bold text-center text-white mb-2">Top Uçuş Yörüngesi Simülasyonu</h1>
         <p class="text-gray-400 text-center max-w-xl">
             Aşağıdaki ayarları kullanarak topun uçuş yörüngesini simüle edin.
         </p>
 
         <!-- Canvas Container -->
-        <div id="canvas-container" class="w-full flex justify-center items-center rounded-2xl overflow-hidden bg-gray-900 shadow-lg" style="height: 50vh;">
+        <div id="canvas-container" class="w-full flex justify-center items-center rounded-2xl overflow-hidden bg-gray-900 shadow-lg h-96">
             <canvas id="render-canvas"></canvas>
         </div>
 
@@ -89,7 +90,7 @@
             const canvasContainer = document.getElementById('canvas-container');
 
             // Set initial camera position
-            camera.position.set(0, 20, 100);
+            camera.position.set(0, 15, 60);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
             // Lighting
@@ -100,7 +101,7 @@
             scene.add(directionalLight);
 
             // Ground plane
-            const planeGeometry = new THREE.PlaneGeometry(200, 200);
+            const planeGeometry = new THREE.PlaneGeometry(120, 120);
             const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x4a5568, side: THREE.DoubleSide });
             const plane = new THREE.Mesh(planeGeometry, planeMaterial);
             plane.rotation.x = Math.PI / 2;
