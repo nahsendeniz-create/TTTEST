@@ -29,53 +29,53 @@
     </style>
 </head>
 <body class="p-4 sm:p-8">
-    <div class="container mx-auto flex flex-col items-center justify-center p-6 bg-gray-800 rounded-3xl shadow-2xl space-y-6">
-        <h1 class="text-3xl sm:text-4xl font-bold text-center text-white mb-2">Top Uçuş Yörüngesi Simülasyonu</h1>
-        <p class="text-gray-400 text-center max-w-xl">
+    <div class="container mx-auto flex flex-col items-center justify-center p-6 bg-gray-800 rounded-3xl shadow-2xl space-y-6 max-w-lg">
+        <h1 class="text-xl sm:text-2xl font-bold text-center text-white mb-2">Top Uçuş Yörüngesi Simülasyonu</h1>
+        <p class="text-gray-400 text-center max-w-md text-xs">
             Aşağıdaki ayarları kullanarak topun uçuş yörüngesini simüle edin.
         </p>
 
         <!-- Canvas Container -->
-        <div id="canvas-container" class="w-full flex justify-center items-center rounded-2xl overflow-hidden bg-gray-900 shadow-lg h-96">
+        <div id="canvas-container" class="w-full flex justify-center items-center rounded-2xl overflow-hidden bg-gray-900 shadow-lg h-64">
             <canvas id="render-canvas"></canvas>
         </div>
 
         <!-- Controls -->
-        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-700 rounded-2xl">
+        <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-3 p-3 bg-gray-700 rounded-2xl">
             <!-- Initial Velocity -->
             <div class="flex flex-col items-center">
-                <label for="velocity" class="text-sm font-medium text-gray-300">Başlangıç Hızı (m/s)</label>
+                <label for="velocity" class="text-2xs font-medium text-gray-300">Başlangıç Hızı (m/s)</label>
                 <div class="flex items-center w-full mt-1">
-                    <input type="range" id="velocity" name="velocity" min="10" max="100" value="50" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                    <span id="velocity-value" class="ml-3 text-white font-mono">50</span>
+                    <input type="range" id="velocity" name="velocity" min="10" max="100" value="50" step="1" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <span id="velocity-value" class="ml-2 text-white font-mono text-xs">50</span>
                 </div>
             </div>
 
             <!-- Angle -->
             <div class="flex flex-col items-center">
-                <label for="angle" class="text-sm font-medium text-gray-300">Açı (derece)</label>
+                <label for="angle" class="text-2xs font-medium text-gray-300">Açı (derece)</label>
                 <div class="flex items-center w-full mt-1">
-                    <input type="range" id="angle" name="angle" min="10" max="80" value="45" step="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                    <span id="angle-value" class="ml-3 text-white font-mono">45</span>
+                    <input type="range" id="angle" name="angle" min="10" max="80" value="45" step="1" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <span id="angle-value" class="ml-2 text-white font-mono text-xs">45</span>
                 </div>
             </div>
 
             <!-- Gravity -->
             <div class="flex flex-col items-center">
-                <label for="gravity" class="text-sm font-medium text-gray-300">Yer Çekimi (m/s²)</label>
+                <label for="gravity" class="text-2xs font-medium text-gray-300">Yer Çekimi (m/s²)</label>
                 <div class="flex items-center w-full mt-1">
-                    <input type="range" id="gravity" name="gravity" min="1" max="20" value="9.8" step="0.1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                    <span id="gravity-value" class="ml-3 text-white font-mono">9.8</span>
+                    <input type="range" id="gravity" name="gravity" min="1" max="20" value="9.8" step="0.1" class="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <span id="gravity-value" class="ml-2 text-white font-mono text-xs">9.8</span>
                 </div>
             </div>
         </div>
 
         <!-- Buttons and Info -->
-        <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
-            <button id="start-button" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg transition-colors duration-300">
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-3 w-full">
+            <button id="start-button" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full shadow-lg transition-colors duration-300 text-sm">
                 Simülasyonu Başlat
             </button>
-            <div id="info-box" class="p-3 bg-gray-700 rounded-xl text-center text-sm text-gray-300">
+            <div id="info-box" class="p-2 bg-gray-700 rounded-xl text-center text-xs text-gray-300">
                 Lütfen başlat butonuna tıklayın.
             </div>
         </div>
@@ -90,7 +90,7 @@
             const canvasContainer = document.getElementById('canvas-container');
 
             // Set initial camera position
-            camera.position.set(0, 15, 60);
+            camera.position.set(0, 10, 30);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
             // Lighting
@@ -101,7 +101,7 @@
             scene.add(directionalLight);
 
             // Ground plane
-            const planeGeometry = new THREE.PlaneGeometry(120, 120);
+            const planeGeometry = new THREE.PlaneGeometry(60, 60);
             const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x4a5568, side: THREE.DoubleSide });
             const plane = new THREE.Mesh(planeGeometry, planeMaterial);
             plane.rotation.x = Math.PI / 2;
